@@ -1,3 +1,6 @@
+import java.util.Scanner;
+import java.io.File;
+
 public class conectividad{
     public static void main(String[] args) {
         //Configuration variables
@@ -26,6 +29,15 @@ public class conectividad{
         //Check if input file is not null
         if (inputFile == null) {
             System.err.println("Error: Input file is required.");
+        }
+
+        //Check if output file already exits
+        if (outputFile != null) {
+            File fileOut = new File(outputFile);
+            if (fileOut.exists()){
+                System.err.println("Error: The output file already exits");
+                return;
+            }
         }
     }
 
