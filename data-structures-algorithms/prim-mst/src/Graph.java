@@ -15,7 +15,6 @@ public class Graph{
         this.costs[node1][node2] = weight; //Using only the upper triangular part of the symmetric matrix to save memory
     }
 
-    
     public int getCost(int node1, int node2){
         if (node1 < node2){
             return this.costs[node1][node2];

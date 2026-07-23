@@ -1,5 +1,7 @@
 import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.InputMismatchException;
 
 public class conectividad{
     public static void main(String[] args) {
@@ -29,6 +31,7 @@ public class conectividad{
         //Check if input file is not null
         if (inputFile == null) {
             System.err.println("Error: Input file is required.");
+            return;
         }
 
         //Check if output file already exits
@@ -38,6 +41,41 @@ public class conectividad{
                 System.err.println("Error: The output file already exits");
                 return;
             }
+        }
+        
+        Graph graph = null;
+
+        try {
+            File file = new File(inputFile);
+            try (Scanner scanner = new Scanner(file)) {
+                if (!scanner.hasNextInt()) {
+                    System.err.println("Error reading the input file: expected number of nodes");
+                    return;
+                }
+
+                int n = scanner.nextInt();
+                if (!scanner.hasNextInt()) {
+                    System.err.println("Error reading the input file: expected second number after node count");
+                    return;
+                }
+                int y = scanner.nextInt();
+
+                graph = new Graph(n, y);
+
+                while (scanner.hasNextInt()) {
+                    int node1 = scanner.nextInt();
+                    int node2 = scanner.nextInt();
+                    int cost = scanner.nextInt();
+
+                    graph.addEdge(node1, node2, cost);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.err.println("Error reading the input file: file not found: " + inputFile);
+            return;
+        } catch (InputMismatchException e) {
+            System.err.println("Error reading the input file: invalid number format");
+            return;
         }
     }
 
