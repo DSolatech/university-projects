@@ -1,7 +1,7 @@
 public class Graph{
     private int n; //Numbers of nodes
     private int y;
-    private int int[][] costs;
+    private int[][] costs;
 
     public Graph(int n, int y){
         this.n = n;
@@ -12,7 +12,12 @@ public class Graph{
 
     //Method to add a edge
     public void addEdge(int node1, int node2, int weight) {
-        this.costs[node1][node2] = weight; //Using only the upper triangular part of the symmetric matrix to save memory
+        if (node1 > node2) {
+            int temp = node1;
+            node1 = node2;
+            node2 = temp;
+        }
+            this.costs[node1][node2] = weight; //Using only the upper triangular part of the symmetric matrix to save memory
     }
 
     public int getCost(int node1, int node2){
