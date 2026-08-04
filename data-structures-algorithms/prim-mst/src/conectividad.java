@@ -1,7 +1,11 @@
+import java.util.List;
 import java.util.Scanner;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.InputMismatchException;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
 
 public class conectividad{
     public static void main(String[] args) {
@@ -77,6 +81,23 @@ public class conectividad{
             System.err.println("Error reading the input file: invalid number format");
             return;
         }
+
+        Prim newMst = new Prim(graph);
+        List<Edge> mst = newMst.getMST();
+
+        if(outputFile == null){
+
+            int totalCost = 0;
+
+            for (Edge edges : mst){
+                totalCost += edges.getCost();
+            }
+            System.out.println(totalCost);
+
+            for (Edge edges : mst){
+                System.out.println(edges.getNode1() + " " + edges.getNode2() + " " + edges.getCost());
+            }
+        } 
     }
 
     public static void showHelp(){
