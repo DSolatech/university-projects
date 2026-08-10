@@ -24,6 +24,11 @@ public class GraphGenerator{
             return;
         }
 
+        if (n <= y){
+            System.err.println("Error: The number of nodes (n) must be greater than parameter y");
+            return;
+        }
+
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName))) {
             writer.println(n + " " + y);
 
@@ -40,6 +45,5 @@ public class GraphGenerator{
         }
 
     }
-
 
 }

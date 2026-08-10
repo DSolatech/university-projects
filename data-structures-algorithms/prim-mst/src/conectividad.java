@@ -82,22 +82,33 @@ public class conectividad{
             return;
         }
 
-        Prim newMst = new Prim(graph);
+        Prim newMst = new Prim(graph, traceMode);
         List<Edge> mst = newMst.getMST();
 
-        if(outputFile == null){
+        //Output for display or file
+        int totalCost = 0;
+        for (Edge edges : mst){
+            totalCost += edges.getCost();
+        }
 
-            int totalCost = 0;
-
-            for (Edge edges : mst){
-                totalCost += edges.getCost();
-            }
+        if (outputFile == null){
             System.out.println(totalCost);
 
             for (Edge edges : mst){
-                System.out.println(edges.getNode1() + " " + edges.getNode2() + " " + edges.getCost());
+                System.out.println(edges.getNode1() + " " + edges.getNode2() + " " + edges.getCost());     
             }
-        } 
+
+        } else {
+            try (PrintWriter writer = new PrintWriter(new FileWriter(outputFile))){
+                writer.println(totalCost);
+
+                for (Edge edges : mst){
+                    writer.println(edges.getNode1() + " " + edges.getNode2() + " " + edges.getCost());     
+                }
+            } catch (IOException e){
+                System.err.println("Error: " + e.getMessage());
+            }
+        }
     }
 
     public static void showHelp(){
